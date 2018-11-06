@@ -4,35 +4,6 @@
 
 (defn make-uuid [] (java.util.UUID/randomUUID))
 
-;(def response
-;  {
-;   :ObjectUUID      (make-uuid)
-;   :_ref            "http://localhost:7001/apps/pigeon/api/v2/webhook/551ccbc5-0907-4a9e-ac3a-bcbed99648de"
-;   :_objectVersion  1
-;   :_type           "webhook"
-;   :CreationDate    "2018-10-25T23:34:40.109Z"
-;   :LastUpdateDate  "2018-10-25T23:34:40.109Z"
-;   :SubscriptionID  123
-;   :CreatedBy       "my-cool-tool"
-;   :OwnerID         (make-uuid)
-;   :TargetUrl       "www.jamayculuz.com/excretosha-mon"
-;   :Name            "Amazing webhook"
-;   :AppName         "Best App Evar"
-;   :AppUrl          "www.jamayculuz.com"
-;   :ObjectTypes     []
-;   :Expressions     [{:AttributeID (make-uuid)  :AttributeName nil :Operator "=" :Value true}]
-;   :Disabled        false
-;   :Security        nil
-;   :LastSuccess     nil
-;   :LastStatus      nil
-;   :FireCount       nil
-;   :ErrorCount      nil
-;   :LastFailure     nil
-;   :LastWebhookResponseTime nil
-;  })
-
-; from cletus.http-client (defn request [options on-complete]
-; with some eliding of non-consequential code
 (defn web-request [options on-complete]
   (try
     (let [
@@ -55,7 +26,7 @@
     (println (str status " error: " error)) ) )
 
 (defn post-webhook
-  "Posts the body to the http url"
+  "Posts the body to the http url...~ pigeon/src/pigeon/workers/webhooks.clj (defn process-webhook...)"
   [url body webhook-id]
   (let [{:keys [message rule]} body
         request    {;:async?           true
@@ -275,6 +246,5 @@
   (println "got here")
   (let [target_url  "http://localhost:3000/event"
         payload     webhook-payload
-        ident       "G4-X9-Y2-M1-54q3l31423"
-        outcome    (post-webhook target_url payload ident)]
+        outcome    (post-webhook target_url payload (make-uuid))]
     (println outcome)))
